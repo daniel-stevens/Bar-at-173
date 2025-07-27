@@ -14,3 +14,6 @@ Bonus Features
 The top drinker of the day was j
 - Spin the wheel for some outcome
 - Random drink/action/drinking game
+
+Usernames: daniel, postgres, alex
+Passwords: poo
