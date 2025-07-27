@@ -1,1 +1,61 @@
-.venv
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.so
+*.egg-info/
+.eggs/
+*.egg
+
+# Virtualenvs
+.venv/
+venv/
+.env/
+
+# Env files / secrets
+.env
+.env.*
+*.env
+
+# --- Django ---
+# Collected static & user uploads (runtime artifacts)
+staticfiles/
+media/
+
+# SQLite (if ever used locally)
+*.sqlite3
+
+# Migrations cache
+# (commit migrations.)
+
+# --- Tests / tooling ---
+.coverage*
+htmlcov/
+.pytest_cache/
+.tox/
+.mypy_cache/
+ruff_cache/
+pytestdebug.log
+
+# --- IDE / Editors ---
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- Node / Frontend (JS tooling later if used) ---
+node_modules/
+yarn.lock
+package-lock.json
+
+# --- Docker / misc ---
+*.log
+*.pid
+docker-compose.override.yml
+
+# --- Build / dist ---
+dist/
+build/
