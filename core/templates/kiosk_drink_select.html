@@ -6,7 +6,7 @@
     <form method="POST" action="{% url 'log-consumption' user.id drink.id %}" style="display:inline;">
       {% csrf_token %}
       <button type="submit" class="button drink-button" style="background: {{ drink.color }};">
-        {{ drink.name }} (£{{ drink.price_pence|floatformat:2|divisibleby:100 }})
+          {{ drink.name }} (£{{ drink.price_pence|floatformat:"-2"|slice:":-2" }})
       </button>
     </form>
   {% endfor %}
