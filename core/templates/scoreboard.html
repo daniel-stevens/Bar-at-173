@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="scoreboard-container">
+  <h2>Current Session Leaderboard{% if session %} – {{ session.name|default:session.start_time|date:"d M Y" }}{% endif %}</h2>
+  {% if not session %}
+    <p>No session is currently active.</p>
+  {% else %}
+    <div id="scoreboard-data"
+         hx-get="{% url 'scoreboard-session' session.id %}"
+         hx-trigger="every 5s"
+         hx-swap="innerHTML">
+      {% include "_scoreboard_table.html" %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

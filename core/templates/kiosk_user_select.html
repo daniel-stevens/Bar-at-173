@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Select Your Name</h2>
+<div class="users-list">
+  {% for user in users %}
+    <a href="{% url 'kiosk-user-drinks' user.id %}" class="user-button">
+      {% if user.avatar %}
+        <img src="{{ user.avatar.url }}" alt="{{ user.first_name }}" class="avatar">
+      {% else %}
+        <!-- default avatar icon if no image -->
+        <img src="https://via.placeholder.com/100?text=User" alt="{{ user.first_name }}" class="avatar">
+      {% endif %}
+      <span>{{ user.first_name }}</span>
+    </a>
+  {% endfor %}
+</div>
+{% endblock %}

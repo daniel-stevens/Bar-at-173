@@ -1,0 +1,22 @@
+<!-- core/templates/base.html -->
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bar at 173</title>
+  <!-- Include a minimal CSS framework or custom styles for simplicity -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css">
+  <style>
+    body { font-family: sans-serif; margin: 1em; }
+    .avatar { border-radius: 50%; width: 100px; height: 100px; object-fit: cover; }
+    .user-button { text-align: center; margin: 10px; display: inline-block; }
+    .user-button span { display: block; margin-top: 5px; }
+    .drink-button { margin: 10px; padding: 15px; font-size: 1.2em; }
+  </style>
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>  <!-- for dynamic updates -->
+</head>
+<body>
+  {% block content %}{% endblock %}
+</body>
+</html>

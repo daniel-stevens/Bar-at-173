@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ user.first_name }} - What are you drinking?</h2>
+<div class="drinks-list">
+  {% for drink in drinks %}
+    <form method="POST" action="{% url 'log-consumption' user.id drink.id %}" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit" class="button drink-button" style="background: {{ drink.color }};">
+        {{ drink.name }} (£{{ drink.price_pence|floatformat:2|divisibleby:100 }})
+      </button>
+    </form>
+  {% endfor %}
+</div>
+<a href="{% url 'kiosk' %}">← Back to users</a>
+{% endblock %}
