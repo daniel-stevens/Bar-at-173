@@ -1,31 +1,43 @@
+{% load dict_utils math_utils %}
+
 <table class="scoreboard-table">
-  <tr>
-    <th>User</th>
-    <th>Drinks</th>
-    <th></th>
-  </tr>
-  {% for user, total in leaderboard %}
+  <thead>
     <tr>
-      <td>
-        {% if user.avatar %}
-          <img src="{{ user.avatar.url }}" alt="{{ user.first_name }}" style="height:40px;width:40px;border-radius:50%;vertical-align:middle;">
-        {% endif %}
-        {{ user.first_name }}
-      </td>
-      <td>{{ total }}</td>
-      <td>
-        <div style="background: #ddd; width: 300px; height: 20px; position: relative;">
-          {% for drink, count in user_drinks[user].items %}
-            {% with width_percent=count|mul:100|div:total %}
-            <div title="{{ drink.name }}: {{ count }}"
-                 style="background: {{ drink.color }};
-                        width: {{ count|floatformat:"2"|div:total|floatformat:"2" }}%;
-                        height: 100%; float: left;">
-            </div>
-            {% endwith %}
-          {% endfor %}
-        </div>
-      </td>
+      <th>User</th>
+      <th>Total Drinks</th>
+      <th></th>
     </tr>
-  {% endfor %}
+  </thead>
+
+  <tbody>
+    {% for user, total in leaderboard %}
+      <tr>
+        <td>
+          {% if user.avatar %}
+            <img src="{{ user.avatar.url }}"
+                 alt="{{ user.first_name }}"
+                 style="height:40px;width:40px;border-radius:50%;vertical-align:middle;">
+          {% endif %}
+          {{ user.first_name }}
+        </td>
+
+        <td>{{ total }}</td>
+
+        <td>
+          <div style="background:#ddd;width:300px;height:20px;position:relative;">
+            {% for drink, count in user_drinks|get_item:user|dictsort:"0" %}
+              {% with pct=count|mul:100|div:total %}
+                <div title="{{ drink.name }}: {{ count }}"
+                     style="background:{{ drink.colour_hex }};
+                            width:{{ pct }}%;
+                            height:100%;
+                            float:left;">
+                </div>
+              {% endwith %}
+            {% endfor %}
+          </div>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
 </table>
