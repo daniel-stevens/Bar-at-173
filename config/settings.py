@@ -22,15 +22,25 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    # ... default middleware ...
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # serve static files in prod
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    # ... other middleware ...
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+
+    #  🔽 these two were missing
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # WhiteNoise stays if you’re using it:
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
-ROOT_URLCONF = 'bar_at_173.urls'
+# Silence the AutoField warnings (Django 3.2+ best practice)
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+ROOT_URLCONF = 'config.urls'
 
 # Template configuration
 TEMPLATES = [
@@ -47,8 +57,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'bar_at_173.wsgi.application'
-ASGI_APPLICATION = 'bar_at_173.asgi.application'  # if using ASGI for websockets
+WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = 'config.asgi.application'
+
 
 # Database: using PostgreSQL
 DATABASES = {
