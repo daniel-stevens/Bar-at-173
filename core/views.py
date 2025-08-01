@@ -27,9 +27,9 @@ def kiosk_drink_select(request, user_id):
         return redirect('kiosk')  # no session, redirect to home (which will show message)
     # Get user or 404 if not found
     user = get_object_or_404(User, pk=user_id, is_active=True)
-    # We might ensure staff/admin users are not listed in kiosk
-    if not user.is_active or user.is_staff:
-        return HttpResponseForbidden("Invalid user")
+    # # We might ensure staff/admin users are not listed in kiosk
+    # if not user.is_active or user.is_staff:
+    #     return HttpResponseForbidden("Invalid user")
     # Get available drinks for this session
     drinks = session.drinks.all().order_by('name')
     context = {'session': session, 'user': user, 'drinks': drinks}
