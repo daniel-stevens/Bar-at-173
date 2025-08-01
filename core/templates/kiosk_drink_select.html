@@ -1,15 +1,43 @@
 {% extends "base.html" %}
+{% load humanize %}   {# for intcomma #}
+
 {% block content %}
-<h2>{{ user.first_name }} - What are you drinking?</h2>
-<div class="drinks-list">
-  {% for drink in drinks %}
-    <form method="POST" action="{% url 'log-consumption' user.id drink.id %}" style="display:inline;">
-      {% csrf_token %}
-      <button type="submit" class="button drink-button" style="background: {{ drink.color }};">
-          {{ drink.name }} (£{{ drink.price_pence|floatformat:"-2"|slice:":-2" }})
-      </button>
-    </form>
-  {% endfor %}
-</div>
-<a href="{% url 'kiosk' %}">← Back to users</a>
+  <h2 style="margin:0 0 1.25rem;font-size:2rem;font-weight:700;">
+      {{ user.first_name }} – Choose your drink
+  </h2>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1.25rem;">
+    {% for drink in drinks %}
+      <form method="POST"
+            action="{% url 'log-consumption' user.id drink.id %}"
+            onsubmit="return confirm(`Are you sure you want to add '{{ drink.name }}'?`);">
+        {% csrf_token %}
+        <button type="submit"
+                style="
+                  width:180px;height:180px;
+                  background:{{ drink.color }};
+                  border:none;border-radius:1rem;
+                  display:flex;flex-direction:column;justify-content:center;align-items:center;
+                  padding:.75rem;
+                  box-shadow:0 4px 8px rgba(0,0,0,.15);
+                  color:#000;text-align:center;
+                  font-size:2rem;font-weight:700;
+                  line-height:1.25;
+                  word-wrap:break-word;
+                ">
+          <span style="flex:1;display:flex;align-items:center;justify-content:center;">
+            {{ drink.name }}
+          </span>
+
+          <span style="font-size:1.5rem;font-weight:800;margin-top:.5rem;">
+            £{{ drink.price_pence|floatformat:"0"|intcomma|slice:":-2" }}
+          </span>
+        </button>
+      </form>
+    {% endfor %}
+  </div>
+
+  <p style="margin-top:2rem;">
+    <a href="{% url 'kiosk' %}" style="font-size:1.1rem;">← Back to users</a>
+  </p>
 {% endblock %}
