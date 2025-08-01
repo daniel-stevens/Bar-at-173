@@ -1,11 +1,11 @@
-{% load dict_utils math_utils %}
+{% load dict_utils beer_utils %}
 
-<table class="scoreboard-table">
+<table class="scoreboard-table" style="width:100%;max-width:900px;">
   <thead>
     <tr>
-      <th>User</th>
-      <th>Total Drinks</th>
-      <th></th>
+      <th style="text-align:left;">User</th>
+      <th style="text-align:right;">Total</th>
+      <th>🍺 Drinks</th>
     </tr>
   </thead>
 
@@ -16,26 +16,16 @@
           {% if user.avatar %}
             <img src="{{ user.avatar.url }}"
                  alt="{{ user.first_name }}"
-                 style="height:40px;width:40px;border-radius:50%;vertical-align:middle;">
+                 style="height:40px;width:40px;border-radius:50%;
+                        vertical-align:middle;margin-right:.5rem;">
           {% endif %}
           {{ user.first_name }}
         </td>
 
-        <td>{{ total }}</td>
+        <td style="text-align:right;">{{ total }}</td>
 
-        <td>
-          <div style="background:#ddd;width:300px;height:20px;position:relative;">
-            {% for drink, count in user_drinks|get_item:user|dictsort:"0" %}
-              {% with pct=count|mul:100|div:total %}
-                <div title="{{ drink.name }}: {{ count }}"
-                     style="background:{{ drink.colour_hex }};
-                            width:{{ pct }}%;
-                            height:100%;
-                            float:left;">
-                </div>
-              {% endwith %}
-            {% endfor %}
-          </div>
+        <td style="font-size:1.4rem;line-height:1.2;">
+          {{ total|beers }}
         </td>
       </tr>
     {% endfor %}

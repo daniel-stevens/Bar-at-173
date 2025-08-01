@@ -1,8 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="scoreboard-container">
-  <h2>Current Session Leaderboard{% if session %} – {{ session.name|default:session.start_time|date:"d M Y" }}{% endif %}</h2>
-  {% if not session %}
+    <h2>
+        Leaderboard
+        {% if session %}
+        |
+        {% if session.name %}
+        {{ session.name }}
+        {% else %}
+        {{ session.start_time|date:"d M Y" }}
+        {% endif %}
+        {% endif %}
+    </h2>
+    {% if not session %}
     <p>No session is currently active.</p>
   {% else %}
     <div id="scoreboard-data"
