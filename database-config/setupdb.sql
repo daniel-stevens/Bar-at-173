@@ -1,7 +1,7 @@
 -- 1️⃣  create a login role the app will use
 CREATE ROLE baruser
   WITH LOGIN
-  PASSWORD 'password';      -- ← pick a strong password
+  PASSWORD 'password';
 
 -- 2️⃣  create the database owned by that role
 CREATE DATABASE barat173
