@@ -1,17 +1,32 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>Select Your Name</h2>
-<div class="users-list">
-  {% for user in users %}
-    <a href="{% url 'kiosk-user-drinks' user.id %}" class="user-button">
-      {% if user.avatar %}
-        <img src="{{ user.avatar.url }}" alt="{{ user.first_name }}" class="avatar">
-      {% else %}
-        <!-- default avatar icon if no image -->
-        <img src="https://via.placeholder.com/100?text=User" alt="{{ user.first_name }}" class="avatar">
-      {% endif %}
-      <span>{{ user.first_name }}</span>
-    </a>
-  {% endfor %}
-</div>
+  <h2>Select your name</h2>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1.5rem;">
+    {% for user in users %}
+      <a href="{% url 'kiosk-user-drinks' user.id %}"
+         style="text-align:center;text-decoration:none;color:inherit;">
+        {# avatar circle #}
+        {% if user.avatar %}
+          <img src="{{ user.avatar.url }}"
+               alt="{{ user.first_name }}"
+               style="width:120px;height:120px;border-radius:50%;object-fit:cover;">
+        {% else %}
+          <div style="width:120px;height:120px;border-radius:50%;
+                      background:#eee;display:flex;align-items:center;justify-content:center;
+                      font-size:2rem;font-weight:600;">
+            {{ user.first_name|slice:":1" }}
+          </div>
+        {% endif %}
+
+        {# label underneath #}
+        <div style="margin-top:0.5rem;font-weight:600;">
+          {{ user.first_name }}
+        </div>
+      </a>
+    {% empty %}
+      <p>No users yet. Add some in the admin.</p>
+    {% endfor %}
+  </div>
 {% endblock %}
